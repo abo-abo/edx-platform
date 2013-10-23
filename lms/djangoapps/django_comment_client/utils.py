@@ -347,19 +347,20 @@ def extend_content(content):
     return merge_dict(content, content_info)
 
 
-def get_courseware_context(content, course):
+def add_courseware_context(content_list, course):
     id_map = _get_discussion_id_map(course)
-    id = content['commentable_id']
-    content_info = None
-    if id in id_map:
-        location = id_map[id]["location"].url()
-        title = id_map[id]["title"]
 
-        url = reverse('jump_to', kwargs={"course_id": course.location.course_id,
-                      "location": location})
+    for content in content_list:
+	id = content['commentable_id']
+	content_info = None
+        if id in id_map:
+	    location = id_map[id]["location"].url()
+            title = id_map[id]["title"]
 
-        content_info = {"courseware_url": url, "courseware_title": title}
-    return content_info
+            url = reverse('jump_to', kwargs={"course_id": course.location.course_id,
+                          "location": location})
+
+            content.update({"courseware_url": url, "courseware_title": title})
 
 
 def safe_content(content):

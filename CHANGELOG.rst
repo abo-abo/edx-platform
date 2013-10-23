@@ -5,6 +5,9 @@ These are notable changes in edx-platform.  This is a rolling list of changes,
 in roughly chronological order, most recent first.  Add your entries at or near
 the top.  Include a label indicating the component affected.
 
+LMS: Improve performance of page load and thread list load for 
+discussion tab
+
 Common: Add skip links for accessibility to CMS and LMS (LMS-1311)
 
 Studio: Change course overview page, checklists, assets, and course staff management
