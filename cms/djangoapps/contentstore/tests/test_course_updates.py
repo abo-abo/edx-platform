@@ -66,7 +66,6 @@ class CourseUpdateTest(CourseTestCase):
         payload = json.loads(resp.content)
         self.assertTrue(len(payload) == 2)
 
-        # can't test non-json paylod b/c expect_json throws error
         # try json w/o required fields
         self.assertContains(self.client.post(url, json.dumps({'garbage': 1}),
                                              "application/json"),

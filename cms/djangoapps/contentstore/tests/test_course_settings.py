@@ -462,6 +462,6 @@ class CourseGraderUpdatesTest(CourseTestCase):
             "short_label": "yo momma",
             "weight": 17.3,
         }
-        resp = self.client.post(self.url, grader)
+        resp = self.client.post(self.url, json.dumps(grader), "application/json")
         self.assertEqual(resp.status_code, 200)
         obj = json.loads(resp.content)
