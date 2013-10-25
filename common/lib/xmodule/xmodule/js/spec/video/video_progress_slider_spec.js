@@ -128,11 +128,21 @@
                 spyOn(videoPlayer, 'onSlideSeek').andCallThrough();
 
                 state.videoPlayer.play();
+
+                waitsFor(function () {
+                    var duration = videoPlayer.duration(),
+                        currentTime = videoPlayer.currentTime;
+
+                    return (
+                        isFinite(currentTime) &&
+                        currentTime > 0 &&
+                        isFinite(duration) &&
+                        duration > 0
+                    );
+                }, 'video begins playing', 10000);
             });
 
             it('freeze the slider', function() {
-                waits(1000);
-
                 runs(function () {
                     videoProgressSlider.onSlide(
                         jQuery.Event('slide'), { value: 20 }
@@ -143,8 +153,6 @@
             });
 
             it('trigger seek event', function() {
-                waits(1000);
-
                 runs(function () {
                     videoProgressSlider.onSlide(
                         jQuery.Event('slide'), { value: 20 }
@@ -181,6 +189,18 @@
                 initialize();
                 spyOn(videoPlayer, 'onSlideSeek').andCallThrough();
                 videoPlayer.play();
+
+                waitsFor(function () {
+                    var duration = videoPlayer.duration(),
+                        currentTime = videoPlayer.currentTime;
+
+                    return (
+                        isFinite(currentTime) &&
+                        currentTime > 0 &&
+                        isFinite(duration) &&
+                        duration > 0
+                    );
+                }, 'video begins playing', 10000);
             });
 
             afterEach(function () {
@@ -191,8 +211,6 @@
             });
 
             it('freeze the slider', function() {
-                waits(1000);
-
                 runs(function () {
                     videoProgressSlider.onStop(
                         jQuery.Event('stop'), { value: 20 }
@@ -203,8 +221,6 @@
             });
 
             it('trigger seek event', function() {
-                waits(1500);
-
                 runs(function () {
                     videoProgressSlider.onStop(
                         jQuery.Event('stop'), { value: 20 }
@@ -222,8 +238,6 @@
             });
 
             it('set timeout to unfreeze the slider', function() {
-                waits(1000);
-
                 runs(function () {
                     videoProgressSlider.onStop(
                         jQuery.Event('stop'), { value: 20 }

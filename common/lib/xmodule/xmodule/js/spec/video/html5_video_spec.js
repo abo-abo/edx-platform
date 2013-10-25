@@ -172,9 +172,9 @@
 
                     runs(function () {
                         expect(player.getPlayerState()).toBe(STATUS.PAUSED);
-                        expect(player.end).not.toBeNull();
+                        expect(state.videoPlayer.endTime).toBeNull();
                         expect(player.video.currentTime)
-                            .toBe(state.videoPlayer.start);
+                            .toBe(state.videoPlayer.startTime);
                         expect(player.config.events.onReady)
                             .toHaveBeenCalled();
                     });

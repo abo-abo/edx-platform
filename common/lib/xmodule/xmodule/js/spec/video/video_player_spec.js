@@ -331,10 +331,22 @@
                 spyOn(videoPlayer.player, 'seekTo');
 
                 state.videoPlayer.play();
+
+                waitsFor(function () {
+                    var duration = videoPlayer.duration(),
+                        currentTime = videoPlayer.currentTime;
+
+                    return (
+                        isFinite(currentTime) &&
+                        currentTime > 0 &&
+                        isFinite(duration) &&
+                        duration > 0
+                    );
+                }, 'video begins playing', 10000);
             });
 
             it('Slider event causes log update', function () {
-                waits(1000);
+                // waits(1000);
 
                 runs(function () {
                     var currentTime = videoPlayer.currentTime;
@@ -355,7 +367,7 @@
             });
 
             it('seek the player', function () {
-                waits(1000);
+                // waits(1000);
 
                 runs(function () {
                     videoProgressSlider.onSlide(
@@ -368,7 +380,7 @@
             });
 
             it('call updatePlayTime on player', function () {
-                waits(1000);
+                // waits(1000);
 
                 runs(function () {
                     videoProgressSlider.onSlide(
@@ -384,7 +396,7 @@
                 'when the player is not playing: set the current time',
                 function ()
             {
-                waits(1000);
+                // waits(1000);
 
                 runs(function () {
                     videoProgressSlider.onSlide(

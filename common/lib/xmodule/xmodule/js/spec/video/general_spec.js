@@ -234,8 +234,8 @@
 
                     state = new Video('#example');
 
-                    expect(state.config.start).toBe(expectData.start);
-                    expect(state.config.end).toBe(expectData.end);
+                    expect(state.config.startTime).toBe(expectData.start);
+                    expect(state.config.endTime).toBe(expectData.end);
                 });
             }
         });
