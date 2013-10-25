@@ -2,7 +2,7 @@
 
 import logging
 from uuid import uuid4
-from urlparse import urlparse
+from requests.packages.urllib3.util import parse_url
 
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.contrib.auth.decorators import login_required
@@ -114,7 +114,7 @@ def save_item(request):
 
             allowedSchemes = ['https']
 
-            if metadata_key == 'html5_sources' and not all([urlparse(u).scheme in allowedSchemes for u in value]):
+            if metadata_key == 'html5_sources' and not all([parse_url(u).scheme in allowedSchemes for u in value]):
                 raise ValidationError(message=u'HTML5 video sources support following protocols: {0}.'.format(str(allowedSchemes)[1:-1]), code='invalid')
         # Save the data that we've just changed to the underlying
         # MongoKeyValueStore before we update the mongo datastore.
