@@ -210,7 +210,7 @@
                     itDescription: 'start time is greater than end time',
                     data: {start: 42, end: 24},
                     expectData: {start: 42, end: null}
-                },
+                }
             ];
 
             beforeEach(function () {
