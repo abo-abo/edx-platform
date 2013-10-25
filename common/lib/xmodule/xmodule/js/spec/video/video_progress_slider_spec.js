@@ -161,11 +161,8 @@
                     expect(videoPlayer.onSlideSeek).toHaveBeenCalled();
 
                     waitsFor(function () {
-                        return (
-                            videoPlayer.currentTime >= 19.5 ||
-                            videoPlayer.currentTime <= 20.5
-                        );
-                    }, 'currentTime got updated', 1000);
+                        return Math.round(videoPlayer.currentTime) === 20;
+                    }, 'currentTime got updated', 10000);
                 });
             });
         });
@@ -229,11 +226,8 @@
                     expect(videoPlayer.onSlideSeek).toHaveBeenCalled();
 
                     waitsFor(function () {
-                        return (
-                            videoPlayer.currentTime >= 19.5 ||
-                            videoPlayer.currentTime <= 20.5
-                        );
-                    }, 'currentTime got updated', 1500);
+                        return Math.round(videoPlayer.currentTime) === 20;
+                    }, 'currentTime got updated', 10000);
                 });
             });
 

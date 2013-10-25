@@ -346,8 +346,6 @@
             });
 
             it('Slider event causes log update', function () {
-                // waits(1000);
-
                 runs(function () {
                     var currentTime = videoPlayer.currentTime;
 
@@ -367,8 +365,6 @@
             });
 
             it('seek the player', function () {
-                // waits(1000);
-
                 runs(function () {
                     videoProgressSlider.onSlide(
                         jQuery.Event('slide'), { value: 60 }
@@ -380,8 +376,6 @@
             });
 
             it('call updatePlayTime on player', function () {
-                // waits(1000);
-
                 runs(function () {
                     videoProgressSlider.onSlide(
                         jQuery.Event('slide'), { value: 60 }
@@ -392,12 +386,11 @@
                 });
             });
 
-            it(
+            // Disabled 10/25/13 due to flakiness in master
+            xit(
                 'when the player is not playing: set the current time',
                 function ()
             {
-                // waits(1000);
-
                 runs(function () {
                     videoProgressSlider.onSlide(
                         jQuery.Event('slide'), { value: 20 }
@@ -408,8 +401,8 @@
                     );
 
                     waitsFor(function () {
-                        return videoPlayer.currentTime === 10;
-                    }, 'currentTime got updated', 1000);
+                        return Math.round(videoPlayer.currentTime) === 10;
+                    }, 'currentTime got updated', 10000);
                 });
             });
         });
@@ -532,6 +525,7 @@
             });
         });
 
+        // Disabled 10/24/13 due to flakiness in master
         xdescribe('updatePlayTime', function () {
             beforeEach(function () {
                 initialize();

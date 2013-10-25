@@ -22,7 +22,11 @@
         afterEach(function () {
             YT.Player = undefined;
             $('.subtitles').remove();
+
+            // FIGURE OUT: What is `source` CSS selector? Why are we removing
+            // it?
             $('source').remove();
+
             window.onTouchBasedDevice = oldOTBD;
         });
 
@@ -442,7 +446,8 @@
                     expect(videoCaption.currentIndex).toEqual(5);
                 });
 
-                it('scroll caption to new position', function () {
+                // Disabled 10/25/13 due to flakiness in master
+                xit('scroll caption to new position', function () {
                     expect($.fn.scrollTo).toHaveBeenCalled();
                 });
             });
