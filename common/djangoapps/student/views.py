@@ -49,6 +49,8 @@ from student.forms import PasswordResetFormNoActive
 
 from certificates.models import CertificateStatuses, certificate_status_for_student
 
+from shoppingcart.models import CertificateItem
+
 from xmodule.course_module import CourseDescriptor
 from xmodule.modulestore.exceptions import ItemNotFoundError
 from xmodule.modulestore.django import modulestore
@@ -310,6 +312,10 @@ def dashboard(request):
             CourseAuthorization.instructor_email_enabled(course.id)
         )
     )
+
+    show_refund_option_for = frozenset(course.id for course, _enrollment in courses
+        if (has_access(request.user, course, 'refund') and (_enrollment.mode == "verified")))
+    
     # get info w.r.t ExternalAuthMap
     external_auth_map = None
     try:
@@ -326,6 +332,7 @@ def dashboard(request):
                'show_courseware_links_for': show_courseware_links_for,
                'cert_statuses': cert_statuses,
                'show_email_settings_for': show_email_settings_for,
+               'show_refund_option_for': show_refund_option_for,
                }
 
     return render_to_response('dashboard.html', context)
