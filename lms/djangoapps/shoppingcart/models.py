@@ -406,15 +406,16 @@ class CertificateItem(OrderItem):
     @classmethod
     def refund_cert(cls, target_user, target_course_id):
         try:
-            target_cert = CertificateItem.objects.get(course_id=target_course_id, user_id=target_user, status='purchased', mode='verified')
+            # If there's duplicate entries, just grab the first one and refund it (though in most cases we should only get one)
+            target_certs = CertificateItem.objects.filter(course_id=target_course_id, user_id=target_user, status='purchased', mode='verified')
+            target_cert = target_certs[0]
             target_cert.status = 'refunded'
+            target_cert.save()
             # todo return success
             return target_cert
-        except MultipleObjectsReturned:
-            # this seems like a thing that shouldn't happen
-            log.exception("Multiple entries for single verified cert found")
-            # but we can recover; select one item and refund it
-            # todo
+        except IndexError:
+            print "aguh"
+            # todo log properly
         except ObjectDoesNotExist:
             # todo log properly
             log.exception("No certificate found")
